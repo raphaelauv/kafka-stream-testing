@@ -1,0 +1,8 @@
+{"namespace": "example.avro",
+ "type": "record",
+ "name": "Order",
+ "fields": [
+     {"name": "color_name", "type": "string"},
+     {"name": "car_name", "type": "string"}
+ ]
+}

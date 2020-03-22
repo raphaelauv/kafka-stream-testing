@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.19.0"
+    }
+}
+
+plugins {
+    id "java"
+    id "maven"
+}
+
+apply plugin: "java"
+apply plugin: "com.commercehub.gradle.plugin.avro-base"
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://packages.confluent.io/maven/" }
+    maven { url "https://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.4.1'
+    testCompile group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '2.4.1'
+
+    compile "org.apache.avro:avro:1.9.2"
+    compile group: 'io.confluent', name: 'kafka-avro-serializer', version: '5.4.1'
+    compile group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '5.4.1'
+    compile group: 'io.confluent', name: 'kafka-schema-registry-client', version: '5.4.1'
+    compile group: 'io.confluent', name: 'kafka-schema-registry', version: '5.4.1'
+
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.1'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.1'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.1'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.15.0'
+    test.useJUnitPlatform()
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
+def generateAvro = tasks.register("generateAvro", com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    stringType = "CharSequence"
+    source("src/test/resources/avro")
+    outputDir = file("$buildDir/generated-main-avro-java/")
+}
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'build/generated-main-avro-java/'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}

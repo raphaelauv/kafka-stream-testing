@@ -1,0 +1,77 @@
+# == Outputs dirs
+#
+# These dirs are used for generated artifacts
+#
+build
+/*/build/
+
+classes
+distrib
+out
+output
+target
+
+# Temporary resources
+temp
+tmp
+.tmp
+.cache
+.tmp
+venv
+
+# == Tools specific dirs and files
+#
+*/__pycache__/
+*/.cache/
+*~
+
+# IDEs
+*.idea*
+.classpath
+.project
+.settings
+.vscode
+
+# Build
+gradle/
+gradlew
+gradlew.bat
+/gradle
+.gradle/
+
+.env
+.env-docker
+
+# Python
+.venv*
+pinned.txt
+/*/*pinned.txt
+/*/pinned.txt
+/*/MANIFEST
+activate
+.coverage
+/*/coverage.xml
+/*/dist/
+/*/htmlcov/
+/ligradle/
+TEST-*.xml
+
+# Do not ignore this Tooling directory
+!/.bin/*
+
+# == Files (by extensions)
+#
+*.egg
+*.egg-info/
+*.iml
+*.pyc
+*.pyo
+*.tgz
+*.tar.gz
+*.log
+*.rpm
+*.deb
+*.jar
+*.zip
+*.retry
+*lastfailed
