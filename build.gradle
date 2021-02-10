@@ -23,19 +23,21 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     jcenter()
+    maven { url "https://jitpack.io" }
     maven { url "https://packages.confluent.io/maven/" }
     maven { url "https://repo.maven.apache.org/maven2" }
+    maven {url 'https://packages.confluent.io/maven'}
 }
 
 dependencies {
-    compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.4.1'
-    testCompile group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '2.4.1'
+    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '2.7.0'
+    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '2.7.0'
 
     compile "org.apache.avro:avro:1.9.2"
-    compile group: 'io.confluent', name: 'kafka-avro-serializer', version: '5.4.1'
-    compile group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '5.4.1'
-    compile group: 'io.confluent', name: 'kafka-schema-registry-client', version: '5.4.1'
-    compile group: 'io.confluent', name: 'kafka-schema-registry', version: '5.4.1'
+    compile group: 'io.confluent', name: 'kafka-avro-serializer', version: '6.1.0'
+    compile group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '6.1.0'
+    compile group: 'io.confluent', name: 'kafka-schema-registry-client', version: '6.1.0'
+    compile group: 'io.confluent', name: 'kafka-schema-registry', version: '6.1.0'
 
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.1'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.1'
