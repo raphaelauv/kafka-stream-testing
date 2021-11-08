@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import static org.apache.kafka.streams.kstream.Suppressed.BufferConfig.unbounded;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WindowTest {
+class WindowTest {
 
     final String INPUT_TOPIC = "in";
     final String OUTPUT_TOPIC = "out";
@@ -70,7 +70,7 @@ public class WindowTest {
     }
 
     @Test
-    public void shouldWindow() {
+    void shouldWindow() {
 
         Instant time = ZonedDateTime.now().toInstant();
 

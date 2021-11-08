@@ -17,7 +17,7 @@ import static java.util.Collections.singletonMap;
 import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AvroSimpleTest {
+class AvroSimpleTest {
 
     final String INPUT_TOPIC = "in";
     final String OUTPUT_TOPIC = "out";
@@ -66,7 +66,7 @@ public class AvroSimpleTest {
     }
 
     @Test
-    public void shouldFilter() {
+    void shouldFilter() {
 
         inputTopic.pipeInput(Color.newBuilder().setName("red").build());
         inputTopic.pipeInput(Color.newBuilder().setName("blue").build());

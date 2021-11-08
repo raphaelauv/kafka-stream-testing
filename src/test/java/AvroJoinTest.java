@@ -22,7 +22,7 @@ import static java.util.Collections.singletonMap;
 import static io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AvroJoinTest {
+class AvroJoinTest {
 
     final String INPUT_TOPIC_CAR = "in_car";
     final String INPUT_TOPIC_COLOR = "in_color";

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SimpleTest {
+class SimpleTest {
 
   private final String INPUT_TOPIC  = "in";
   private final String OUTPUT_TOPIC = "out";
@@ -46,7 +46,7 @@ public class SimpleTest {
   }
 
   @Test
-  public void shouldFilterAndMap() {
+  void shouldFilterAndMap() {
     inputTopic.pipeInput(5);
     inputTopic.pipeInput(3);
     inputTopic.pipeInput(2);

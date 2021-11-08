@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class OfficalExample {
+class OfficalExample {
 
 
     private TopologyTestDriver testDriver;
@@ -67,7 +67,7 @@ public class OfficalExample {
     }
 
     @Test
-    public void shouldFlushStoreForFirstInput() {
+    void shouldFlushStoreForFirstInput() {
         inputTopic.pipeInput("a", 1L);
         assertThat(outputTopic.readKeyValue()).isEqualTo(new KeyValue<>("a", 21L));
         assertThat(outputTopic.isEmpty()).isTrue();
@@ -75,7 +75,7 @@ public class OfficalExample {
     }
 
     @Test
-    public void shouldNotUpdateStoreForSmallerValue() {
+    void shouldNotUpdateStoreForSmallerValue() {
         inputTopic.pipeInput("a", 1L);
         assertThat(store.get("a")).isEqualTo(21L);
         assertThat(outputTopic.readKeyValue()).isEqualTo((new KeyValue<>("a", 21L)));
@@ -83,7 +83,7 @@ public class OfficalExample {
     }
 
     @Test
-    public void shouldNotUpdateStoreForLargerValue() {
+    void shouldNotUpdateStoreForLargerValue() {
         inputTopic.pipeInput("a", 42L);
         assertThat(store.get("a")).isEqualTo(42L);
         assertThat(outputTopic.readKeyValue()).isEqualTo((new KeyValue<>("a", 42L)));
@@ -91,7 +91,7 @@ public class OfficalExample {
     }
 
     @Test
-    public void shouldUpdateStoreForNewKey() {
+    void shouldUpdateStoreForNewKey() {
         inputTopic.pipeInput("b", 21L);
         assertThat(store.get("b")).isEqualTo((21L));
         assertThat(outputTopic.readKeyValue()).isEqualTo((new KeyValue<>("a", 21L)));
@@ -100,7 +100,7 @@ public class OfficalExample {
     }
 
     @Test
-    public void shouldPunctuateIfEvenTimeAdvances() {
+    void shouldPunctuateIfEvenTimeAdvances() {
         final Instant recordTime = Instant.now();
         inputTopic.pipeInput("a", 1L, recordTime);
         assertThat(outputTopic.readKeyValue()).isEqualTo(new KeyValue<>("a", 21L));
@@ -114,7 +114,7 @@ public class OfficalExample {
     }
 
     @Test
-    public void shouldPunctuateIfWallClockTimeAdvances() {
+    void shouldPunctuateIfWallClockTimeAdvances() {
         testDriver.advanceWallClockTime(Duration.ofSeconds(60));
         assertThat(outputTopic.readKeyValue()).isEqualTo(new KeyValue<>("a", 21L));
         assertThat(outputTopic.isEmpty()).isTrue();
