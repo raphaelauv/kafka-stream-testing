@@ -85,7 +85,7 @@ class AvroJoinTest {
     }
 
     @Test
-    public void shouldJoinByKeys() {
+    void shouldJoinByKeys() {
 
         inputTopicCar.pipeInput("21", Car.newBuilder().setBrand("honda").build());
         inputTopicCar.pipeInput("35", Car.newBuilder().setBrand("mercedes").build());
@@ -97,9 +97,9 @@ class AvroJoinTest {
 
         outputTopic.readValuesToList().forEach(order -> {
             if (order.getColorName().toString().equals("red")) {
-                assertThat(order.getCarName().toString()).isEqualTo("honda");
+                assertThat(order.getCarName()).hasToString("honda");
             } else {
-                assertThat(order.getCarName().toString()).isEqualTo("mercedes");
+                assertThat(order.getCarName()).hasToString("mercedes");
             }
         });
 

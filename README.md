@@ -2,14 +2,13 @@
 
 # Kafka Stream Test 100% programmatic
 
-
 - No docker-compose
-- No schema registry
-- No kafka Broker
-- No gradle task
+- No external schema registry
+- No external kafka Broker
 - No topic creation
 
 Thanks to :
+
 - TopologyTestDriver
 - TestInputTopic
 - MOCK_SCHEMA_REGISTRY

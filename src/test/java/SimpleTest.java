@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.kafka.common.serialization.*;
@@ -53,7 +55,15 @@ class SimpleTest {
     inputTopic.pipeInput(9);
 
     assertThat(outputTopic.getQueueSize()).isEqualTo(3);
-    assertThat(outputTopic.readValue()).isEqualTo(6);
+
+    List<KeyValue<String, Integer>> rst = Arrays.asList(
+            new KeyValue<>(null, 6),
+            new KeyValue<>(null, 4),
+            new KeyValue<>(null, 10)
+    );
+
+    assertThat(outputTopic.readKeyValuesToList()).isEqualTo(rst);
+
   }
 
 }

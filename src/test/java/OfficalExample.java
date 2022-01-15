@@ -5,14 +5,14 @@ import java.util.Properties;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
-import org.apache.kafka.streams.processor.Processor;
-import org.apache.kafka.streams.processor.ProcessorContext;
-import org.apache.kafka.streams.processor.ProcessorSupplier;
+import org.apache.kafka.streams.processor.api.Processor;
+import org.apache.kafka.streams.processor.api.ProcessorContext;
+import org.apache.kafka.streams.processor.api.ProcessorSupplier;
 import org.apache.kafka.streams.processor.PunctuationType;
+import org.apache.kafka.streams.processor.api.Record;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.Stores;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -120,17 +120,17 @@ class OfficalExample {
         assertThat(outputTopic.isEmpty()).isTrue();
     }
 
-    public static class CustomMaxAggregatorSupplier implements ProcessorSupplier<String, Long> {
+    public static class CustomMaxAggregatorSupplier implements ProcessorSupplier<String, Long, String, Long> {
 
         @Override
-        public Processor<String, Long> get() {
+        public org.apache.kafka.streams.processor.api.Processor<String, Long, String, Long> get() {
             return new CustomMaxAggregator();
         }
     }
 
-    public static class CustomMaxAggregator implements Processor<String, Long> {
+    public static class CustomMaxAggregator implements Processor<String, Long, String, Long> {
 
-        ProcessorContext context;
+        ProcessorContext<String, Long> context;
         private KeyValueStore<String, Long> store;
 
         @SuppressWarnings("unchecked")
@@ -142,19 +142,21 @@ class OfficalExample {
             store = (KeyValueStore<String, Long>) context.getStateStore("aggStore");
         }
 
-        @Override
-        public void process(final String key, final Long value) {
-            final Long oldValue = store.get(key);
-            if (oldValue == null || value > oldValue) {
-                store.put(key, value);
-            }
-        }
-
         private void flushStore() {
             final KeyValueIterator<String, Long> it = store.all();
             while (it.hasNext()) {
-                final KeyValue<String, Long> next = it.next();
-                context.forward(next.key, next.value);
+                KeyValue<String, Long> next = it.next();
+                context.forward(new Record<>(next.key, next.value, System.currentTimeMillis()));
+            }
+        }
+
+        @Override
+        public void process(Record<String, Long> record) {
+            String key = record.key();
+            Long newValue = record.value();
+            final Long oldValue = store.get(key);
+            if (oldValue == null || newValue > oldValue) {
+                store.put(key, newValue);
             }
         }
 

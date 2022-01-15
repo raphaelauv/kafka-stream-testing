@@ -71,7 +71,7 @@ class AvroSimpleTest {
         inputTopic.pipeInput(Color.newBuilder().setName("red").build());
         inputTopic.pipeInput(Color.newBuilder().setName("blue").build());
 
-        assertThat(outputTopic.readValue().getName().toString()).isEqualTo("blue");
+        assertThat(outputTopic.readValue().getName()).hasToString("blue");
 
     }
 

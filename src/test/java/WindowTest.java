@@ -28,25 +28,21 @@ class WindowTest {
 
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws IOException {
 
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "test");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummy:1234");
         props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
-        try {
-            props.put(StreamsConfig.STATE_DIR_CONFIG,
-                    Files.createTempDirectory("tumbling-windows").toAbsolutePath().toString());
-        } catch (IOException e) {
-
-        }
+        props.put(StreamsConfig.STATE_DIR_CONFIG,
+                Files.createTempDirectory("tumbling-windows").toAbsolutePath().toString());
 
         StreamsBuilder builder = new StreamsBuilder();
 
+        //a grace is necessary for suppress
         TimeWindows windows = TimeWindows
-                .of(Duration.ofSeconds(1))
-                .advanceBy(Duration.ofSeconds(1))
-                .grace(Duration.ofMillis(150L)); //a grace is necessary for suppress
+                .ofSizeAndGrace(Duration.ofSeconds(1), Duration.ofMillis(150L))
+                .advanceBy(Duration.ofSeconds(1));
 
         builder.stream(INPUT_TOPIC, Consumed.with(new Serdes.StringSerde(), new Serdes.IntegerSerde(), null, null))
                 .groupByKey()
@@ -95,14 +91,14 @@ class WindowTest {
 
         assertThat(outputTopic.getQueueSize()).isEqualTo(4);
 
-        List<KeyValue<String, Integer>> a = Arrays.asList(
+        List<KeyValue<String, Integer>> rst = Arrays.asList(
                 new KeyValue<>("a", 3),
                 new KeyValue<>("b", 2),
                 new KeyValue<>("b", 2),
                 new KeyValue<>("c", 2)
         );
 
-        assertThat(outputTopic.readKeyValuesToList()).isEqualTo(a);
+        assertThat(outputTopic.readKeyValuesToList()).isEqualTo(rst);
 
     }
 
