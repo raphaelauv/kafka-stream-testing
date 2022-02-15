@@ -1,11 +1,11 @@
 plugins {
     id "java"
-    id "maven"
+    id "maven-publish"
     id "com.github.davidmc24.gradle.plugin.avro" version "1.3.0"
 }
 
 apply plugin: "java"
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: "com.github.davidmc24.gradle.plugin.avro"
 
 group 'org.example'
@@ -14,17 +14,14 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.11
 
 repositories {
-    mavenCentral()
-    jcenter()
     maven { url "https://jitpack.io" }
     maven { url "https://packages.confluent.io/maven/" }
     maven { url "https://repo.maven.apache.org/maven2" }
-    maven { url 'https://packages.confluent.io/maven' }
 }
 
 dependencies {
-    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.0.0'
-    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '3.0.0'
+    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.1.0'
+    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '3.1.0'
 
     implementation "org.apache.avro:avro:1.11.0"
     implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '7.0.1'
