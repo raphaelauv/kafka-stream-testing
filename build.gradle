@@ -1,7 +1,7 @@
 plugins {
     id "java"
     id "maven-publish"
-    id "com.github.davidmc24.gradle.plugin.avro" version "1.7.0"
+    id "com.github.davidmc24.gradle.plugin.avro" version "1.8.0"
 }
 
 apply plugin: "java"
@@ -23,7 +23,7 @@ dependencies {
     implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.5.0'
     testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '3.5.0'
 
-    implementation "org.apache.avro:avro:1.11.1"
+    implementation "org.apache.avro:avro:1.11.2"
     implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '7.4.0'
     implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '7.4.0'
     implementation group: 'io.confluent', name: 'kafka-schema-registry-client', version: '7.4.0'
