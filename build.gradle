@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.5.1'
-    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '3.5.1'
+    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '3.6.0'
+    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '3.6.0'
 
     implementation "org.apache.avro:avro:1.11.2"
     implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '7.5.0'
