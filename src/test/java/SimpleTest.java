@@ -32,7 +32,7 @@ class SimpleTest {
 
     StreamsBuilder builder = new StreamsBuilder();
 
-    builder.stream(INPUT_TOPIC, Consumed.with(new Serdes.StringSerde(), new Serdes.IntegerSerde(), null, null))
+    builder.stream(INPUT_TOPIC, Consumed.with(new Serdes.StringSerde(), new Serdes.IntegerSerde()))
            .filter((key, value) -> value > 2)
            .mapValues((readOnlyKey, value) -> value + 1)
            .to(OUTPUT_TOPIC, Produced.with(new Serdes.StringSerde(), new Serdes.IntegerSerde()));

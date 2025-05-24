@@ -49,7 +49,7 @@ class AvroSimpleTest {
 
         StreamsBuilder builder = new StreamsBuilder();
 
-        builder.stream(INPUT_TOPIC, Consumed.with(stringSerde, avroColorSerde, null, null))
+        builder.stream(INPUT_TOPIC, Consumed.with(stringSerde, avroColorSerde))
                 .filter((key, value) -> value.getName().length() > 3)
                 .to(OUTPUT_TOPIC, Produced.with(stringSerde, avroColorSerde));
 

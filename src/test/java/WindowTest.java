@@ -44,7 +44,7 @@ class WindowTest {
                 .ofSizeAndGrace(Duration.ofSeconds(1), Duration.ofMillis(150L))
                 .advanceBy(Duration.ofSeconds(1));
 
-        builder.stream(INPUT_TOPIC, Consumed.with(new Serdes.StringSerde(), new Serdes.IntegerSerde(), null, null))
+        builder.stream(INPUT_TOPIC, Consumed.with(new Serdes.StringSerde(), new Serdes.IntegerSerde()))
                 .groupByKey()
                 .windowedBy(windows)
                 .count()

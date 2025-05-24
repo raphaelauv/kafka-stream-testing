@@ -62,9 +62,9 @@ class AvroJoinTest {
 
         StreamsBuilder builder = new StreamsBuilder();
 
-        KTable<String, Car> cars = builder.table(INPUT_TOPIC_CAR, Consumed.with(stringSerde, avroCarSerde, null, null));
+        KTable<String, Car> cars = builder.table(INPUT_TOPIC_CAR, Consumed.with(stringSerde, avroCarSerde));
 
-        KStream<String, Color> colors = builder.stream(INPUT_TOPIC_COLOR, Consumed.with(stringSerde, avroColorSerde, null, null));
+        KStream<String, Color> colors = builder.stream(INPUT_TOPIC_COLOR, Consumed.with(stringSerde, avroColorSerde));
 
         colors.join(cars, (color, car) -> Order.newBuilder().setCarName(car.getBrand()).setColorName(color.getName()).build())
                 .to(OUTPUT_TOPIC, Produced.with(stringSerde, avroOderSerde));
