@@ -20,14 +20,14 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '4.0.0'
-    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '4.0.0'
+    implementation group: 'org.apache.kafka', name: 'kafka-streams', version: '4.1.0'
+    testImplementation group: 'org.apache.kafka', name: 'kafka-streams-test-utils', version: '4.1.0'
 
     implementation "org.apache.avro:avro:1.11.4"
-    implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '8.0.1'
-    implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '8.0.1'
-    implementation group: 'io.confluent', name: 'kafka-schema-registry-client', version: '8.0.1'
-    implementation group: 'io.confluent', name: 'kafka-schema-registry', version: '8.0.1'
+    implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '8.1.0'
+    implementation group: 'io.confluent', name: 'kafka-streams-avro-serde', version: '8.1.0'
+    implementation group: 'io.confluent', name: 'kafka-schema-registry-client', version: '8.1.0'
+    implementation group: 'io.confluent', name: 'kafka-schema-registry', version: '8.1.0'
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.17'
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.17'
